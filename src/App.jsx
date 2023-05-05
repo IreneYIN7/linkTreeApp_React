@@ -12,7 +12,8 @@ const DARK = 'DARK';
 // Step 1
 //
 const LINKS = [
-  { title: 'Website', url: 'https://www.bugsnyu.com' }
+  { title: 'GitHub', url: 'https://github.com/IreneYIN7' },
+  { title: 'LinkedIn', url: 'https://www.linkedin.com/in/zhebin-yin/'}
   // Extend this array with your desired links
   // { title: string, url: string }
 ];
@@ -20,9 +21,16 @@ const LINKS = [
 // Requires two props: `imageSrc` and `name`
 // `imageSrc` - avatar image import from the assets
 // `name` - the desired name that will be displayed below the avatar
-const Avatar = ({ imageSrc, name }) => (
+const Avatar = ({ imageSrc, name, size }) => (
   <>
-    <img src={imageSrc} alt='' className='avatar' />
+    <img 
+    src={imageSrc} 
+    alt= {name}
+    className='avatar'
+    width={size}
+    height={size} 
+    
+    />
     <h1>{name}</h1>
   </>
 );
@@ -31,8 +39,11 @@ const Avatar = ({ imageSrc, name }) => (
 // `title` - link button title
 // `url` - the url that the link button links to
 const LinkButton = ({ title, url }) => (
-  <a target='_blank' href={url} className='link'>
-    {title}
+  <a 
+  target='_blank' 
+  href={url} 
+  className='link'>
+  {title}
   </a>
 );
 
@@ -56,7 +67,8 @@ const App = () => {
   // Constant var that maps all of the links
   // Hint: use <LinkButton /> component and `.map` method for `LINKS` array
   // Docs reference: https://react.dev/learn/conditional-rendering
-  const mapLinks = null; // TODO: remove `null` and complete this constant
+  const mapLinks = LINKS.map(link => 
+          <li> {link.title}</li>);
 
   // Step 4
   //
@@ -65,7 +77,7 @@ const App = () => {
   // If the currentTheme is `LIGHT` then the className string should be `container light`
   // Hint: use ternary operator and check the `currentTheme` value
   // Docs reference: https://react.dev/learn/conditional-rendering
-  const containerClassName = null; // TODO: remove `null` and complete this constant
+  const containerClassName = (currentTheme === DARK)? 'container' : 'container light'; // TODO: remove `null` and complete this constant
 
   // Step 5
   //
@@ -73,7 +85,9 @@ const App = () => {
   // If the current theme is `DARK` then toggle to `LIGHT`, else toggle to `DARK`
   // Hint: use `setCurrentTheme` to toggle the state
   // Docs reference: https://react.dev/learn/state-a-components-memory
-  const toggleTheme = () => {}; // TODO: complete this function
+  const toggleTheme = () => {
+    setCurrentTheme(currentTheme === DARK? LIGHT : DARK);
+  }; // TODO: complete this function
 
   // Step 3
   //
@@ -83,10 +97,14 @@ const App = () => {
   // - Remove the comment in curly brackets (including the curly brackets)
   // Hint: dont forget to pass the props (you will find required props near the component definitions above)
   // Docs reference: https://react.dev/learn/passing-props-to-a-component
+
   return (
     <div className={containerClassName}>
-      {/* Complete the component in Step 3 and remove this comment */}
+      
+      <Avatar imageSrc={avatarPic}  name={'Irene'} size={100}/>
+      
       {mapLinks}
+      <ThemeTogglerButton toggleTheme={toggleTheme} />
     </div>
   );
 };
